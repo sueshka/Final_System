@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espresso Drinks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background-color: #f8f8f8;
+            position: relative;
+        }
+        .lgpic {
+            height: 50px;
+        }
+        .menu {
+            position: absolute;
+            top: 20px;
+            left: 90px;
+            display: flex;
+            justify-content: space-between;
+            width: 1300px;
+        }
+        .menu a {
+            width: 260px;
+            height: 39px;
+            color: rgb(0, 0, 0);
+            font-family: Montserrat, sans-serif;
+            font-size: 25px;
+            font-weight: 700;
+            line-height: 10px;
+            letter-spacing: 0%;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            position: absolute;
+            background: rgb(235, 235, 235);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .card img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 5px;
+            margin-top: -40px;
+        }
+        .card h2 {
+            font-family: Montserrat, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 0px;
+            margin-bottom: -3px;
+        }
+        .card p {
+            font-family: Montserrat, sans-serif;
+            font-size: 18px;
+            text-align: center;
+        }
+        .card .price {
+            font-family: Montserrat, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .card button {
+            margin-top: 5px;
+            padding: 10px 20px;
+            font-family: Montserrat, sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            background: rgb(45, 86, 56);
+            border: none;
+            cursor: pointer;
+        }
+        .card .description-button {
+            background: rgb(0, 123, 255);
+            color: white;
+        }
+        .card.left {
+            width: 427px;
+            height: 597px;
+            left: 50px;
+            top: 190px;
+        }
+        .card.right {
+            width: 427px;
+            height: 597px;
+            left: 975px;
+            top: 190px;
+        }
+        .card.center {
+            background: rgb(45, 86, 56);
+            width: 447px;
+            height: 701px;
+            left: 497px;
+            top: 120px;
+        }
+        .card.center h2, .card.center p, .card.center .price {
+            color: white;
+        }
+        .card.center button {
+            background: white;
+            color: rgb(45, 86, 56);
+        }
+        .cart {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: white;
+            border-left: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+            transition: right 0.3s;
+            z-index: 1000;
+        }
+        .cart.active {
+            right: 0;
+        }
+        .cart h3 {
+            margin-top: 0;
+        }
+        .cart-item {
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .cart-item button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            font-family: Montserrat, sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            background: rgb(200, 50, 50);
+            border: none;
+            cursor: pointer;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 999;
+        }
+        .overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Logo" class="lgpic">
+        <nav class="menu">
+            <a href="main.html">Home</a>
+            <a href="#">Iced Coffee</a>
+            <a href="#">Iced Tea</a>
+            <a href="#">Hot Tea</a>
+            <a href="#">Coffee</a>
+            <a href="#" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+    
+    <div class="card left" data-name="Espresso - 1" data-price="10" data-description="Delicious hot or iced latte.">
+        <img src="images/es_2.png" alt="Latte">
+        <h2>Latte</h2>
+        <p>Delicious hot or iced latte.</p>
+        <h2 class="price">$10</h2>
+        <button onclick="addToCart(this)">Add</button>
+        <button class="description-button" onclick="openDescription(this)">Description</button>
+    </div>
+    <div class="card center" data-name="Espresso" data-price="20" data-description="Strong and rich espresso.">
+        <img src="images/es_1.png" alt="Espresso">
+        <h2>Espresso</h2>
+        <p>Strong and rich espresso.</p>
+        <h2 class="price">$20</h2>
+        <button onclick="addToCart(this)">Add</button>
+        <button class="description-button" onclick="openDescription(this)">Description</button>
+    </div>
+    <div class="card right" data-name="Cappuccino" data-price="10" data-description="Classic cappuccino with foam.">
+        <img src="images/es_3.png" alt="Cappuccino">
+        <h2>Cappuccino</h2>
+        <p>Classic cappuccino with foam.</p>
+        <h2 class="price">$10</h2>
+        <button onclick="addToCart(this)">Add</button>
+        <button class="description-button" onclick="openDescription(this)">Description</button>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <section class="cart" id="cart">
+        <h3>Cart</h3>
+        <div id="cart-items"></div>
+        <p>Total: $<span id="cart-total">0</span></p>
+        <button onclick="closeCart()">Close</button>
+    </section>
+    <script>
+        let cartCount = 0;
+        let cartTotal = 0;
+
+        function addToCart(button) {
+            const card = button.parentElement;
+            const name = card.getAttribute('data-name');
+            const price = parseInt(card.getAttribute('data-price'));
+
+            cartCount++;
+            cartTotal += price;
+
+            document.getElementById('cart-count').innerText = cartCount;
+            document.getElementById('cart-total').innerText = cartTotal;
+
+            const cartItems = document.getElementById('cart-items');
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+            cartItem.innerHTML = `${name} - $${price} <button onclick="removeFromCart(this, ${price})">Remove</button>`;
+            cartItems.appendChild(cartItem);
+        }
+
+        function removeFromCart(button, price) {
+            const cartItem = button.parentElement;
+            cartItem.remove();
+
+            cartCount--;
+            cartTotal -= price;
+
+            document.getElementById('cart-count').innerText = cartCount;
+            document.getElementById('cart-total').innerText = cartTotal;
+        }
+
+        function openDescription(button) {
+            const card = button.parentElement;
+            const name = card.getAttribute('data-name');
+            const description = card.getAttribute('data-description');
+            const url = `description.html?name=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}`;
+            window.open(url, '_self');
+        }
+
+        document.getElementById('cart-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('cart').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        });
+
+        document.getElementById('overlay').addEventListener('click', function() {
+            closeCart();
+        });
+
+        function closeCart() {
+            document.getElementById('cart').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        }
+    </script>
+</body>
+</html>

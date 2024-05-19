@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Description</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .description-container {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: left;
+            max-width: 800px;
+            width: 100%;
+        }
+        .description-container h1 {
+            font-family: Montserrat, sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .description-container p {
+            font-family: Montserrat, sans-serif;
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .description-container button {
+            padding: 10px 20px;
+            font-family: Montserrat, sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            background: rgb(45, 86, 56);
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="description-container">
+        <h1 id="product-name">Espresso</h1>
+        <p id="product-description">Our espresso is made with a perfect blend of coffee beans, providing a rich and bold flavor. Enjoy it hot or iced.</p>
+        <button onclick="window.history.back()">Back</button>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        const description = urlParams.get('description');
+
+        document.getElementById('product-name').innerText = name;
+        document.getElementById('product-description').innerText = description;
+    </script>
+</body>
+</html>

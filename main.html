@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<header>
+    <img src="images/logo.png" alt="Logo" height="50" class="lgpic">
+        <nav class="menu">
+            <a href="Esspresso.html">Espresso Drinks</a>
+            <a href="#">Iced Coffee</a>
+            <a href="#">Iced Tea</a>
+            <a href="#">Hot Tea</a>
+            <a href="#">Coffee</a>
+            <a href="#" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+<body>
+    <div class="rect">
+        <img src="/images/istarbacks.png" class="mainpic">
+        <h1 class="main_txt">Order your drinks here!</h1>
+        <p class="tx">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </p>
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+    <section class="cart" id="cart">
+        <h3>Cart</h3>
+        <div id="cart-items"></div>
+        <p>Total: $<span id="cart-total">0</span></p>
+        <button onclick="closeCart()">Close</button>
+</body>
+
+<style>
+    .lgpic{
+        top:20px;
+    }
+    .rect{
+        position: absolute;
+        width: 1300px;
+        height: 650px;
+        left: 70px;
+        right: 55px;
+        top: 120px;
+        bottom: 110px;
+        background: rgb(234, 234, 234);
+    }
+
+    .menu {
+            position: absolute;
+            top: 20px;
+            left: 90px;
+            right: 1019px;
+            bottom: 918px;
+            display: flex;
+            justify-content: space-between;
+            width:1300px;
+            
+        }
+        .menu a {
+            width: 260px;
+            height: 39px;
+            color: rgb(0, 0, 0);
+            font-family: Montserrat, sans-serif;
+            font-size: 25px;
+            font-weight: 700;
+            line-height: 10px;
+            letter-spacing: 0%;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mainpic{
+            position: absolute;
+            width: 530px;
+            height: 650px;
+            left: 780px;
+            right: 58px;
+            top: 0px;
+            bottom: 110px;
+                    }
+
+    .main_txt{
+        color: rgb(0, 0, 0);
+        font-family: Montserrat;
+        font-size: 48px;
+        font-weight: 700;
+        line-height: 59px;
+        letter-spacing: 0%;
+        text-align: center;
+       
+        position: absolute;
+        width: 585px;
+        height: 59px;
+        left: -20px;
+        right: 756px;
+        top: 140px;
+        bottom: 607px;
+            }
+
+        .tx{
+            color: rgb(0, 0, 0);
+            font-family: Montserrat;
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 39px;
+            letter-spacing: 0%;
+            text-align: left;
+
+            position: absolute;
+            width: 619px;
+            height: 156px;
+            left: 30px;
+            right: 709px;
+            top: 250px;
+            bottom: 406px;
+        }
+
+        .cart {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: white;
+            border-left: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+            transition: right 0.3s;
+            z-index: 1000;
+        }
+        .cart.active {
+            right: 0;
+        }
+        .cart h3 {
+            margin-top: 0;
+        }
+        .cart-item {
+            margin: 5px 0;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 999;
+        }
+        .overlay.active {
+            display: block;
+        }
+
+</style>
+<script>
+    let cartCount = 0;
+    let cartTotal = 0;
+
+    function addToCart(button) {
+        const drinkItem = button.parentElement;
+        const name = drinkItem.getAttribute('data-name');
+        const price = parseInt(drinkItem.getAttribute('data-price'));
+
+        cartCount++;
+        cartTotal += price;
+
+        document.getElementById('cart-count').innerText = cartCount;
+        document.getElementById('cart-total').innerText = cartTotal;
+
+        const cartItems = document.getElementById('cart-items');
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerText = `${name} - $${price}`;
+        cartItems.appendChild(cartItem);
+    }
+
+    document.getElementById('cart-link').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('cart').classList.add('active');
+        document.getElementById('overlay').classList.add('active');
+    });
+
+    document.getElementById('overlay').addEventListener('click', function() {
+        closeCart();
+    });
+
+    function closeCart() {
+        document.getElementById('cart').classList.remove('active');
+        document.getElementById('overlay').classList.remove('active');
+    }
+</script>
+</html>
